@@ -202,7 +202,7 @@ text {
 								.attr("r", radius)
 								.attr("r", function(d) {
 									  if (d.label == "propertymax") {
-										return 2*radius;
+										return 2.5*radius;
 									  }
 									   if(d.label=="relation"){
 									   	return 1.3* radius;
@@ -253,33 +253,70 @@ text {
 					// console.log(d.name+"---"+ d.name.length);
 					var re_en = /[a-zA-Z]+/g;
 					//如果是全英文，不换行
-					if(d.name.match(re_en)){
-						d3.select(this).append('tspan')
-						.attr('x',0)
-						.attr('y',2)
-						.text(function(){return d.name;});
-					}
+					//if(d.name.match(re_en)){
+					//	d3.select(this).append('tspan')
+					//	.attr('x',0)
+					//	.attr('y',2)
+					//	.text(function(){return d.name;});
+					//}
 					//如果小于四个字符，不换行
-					else if(d.name.length<=6){
+				    if(d.name.length<=12){
 						d3.select(this).append('tspan')
 						.attr('x',0)
 						.attr('y',2)
 						.text(function(){return d.name;});
 					}else{
-						var top=d.name.substring(0,6);
-						var bot=d.name.substring(6,d.name.length);
+						var top=d.name.substring(0,12);
+						var mid1=d.name.substring(12,24);
+						var mid2=d.name.substring(24,36);
+						var mid3=d.name.substring(36,48);
+						var mid4=d.name.substring(48,60);
+						var mid5=d.name.substring(60,72);
+						var mid6=d.name.substring(72,84);
+						var mid7=d.name.substring(84,96);
+						var bot=d.name.substring(96,d.name.length);
 
 						d3.select(this).text(function(){return '';});
 
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',-7)
+							.attr('y',-35)
 							.text(function(){return top;});
 
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',10)
-							.text(function(){return bot;});
+							.attr('y',-17)
+							.text(function(){return mid1;});
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',-1)
+							.text(function(){return mid2;});
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',16)
+							.text(function(){return mid3;});
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',33)
+							.text(function(){return mid4;});
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',50)
+							.text(function(){return mid5;});	
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',67)
+							.text(function(){return mid6;});		
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',84)
+							.text(function(){return mid7;});		
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',101)
+							.text(function(){return bot;});							
+
+
 					}
 				});
         //直接显示文字    
