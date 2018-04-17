@@ -78,8 +78,8 @@ text {
         
         // var width = 900;
         // var height = 800;
-		var width = 1560,
-    		height = 800;
+		var width = 2000,
+    		height = 1000;
         	img_w = 77;
         	img_h = 80;
         	radius = 40;    //圆形半径
@@ -127,10 +127,10 @@ text {
                             .links(links)
                             .size([width,height])
                             .linkDistance(function(d) {
-									if (d.label != "property") {
-										return 200;
+									if (d.label == "relation") {
+										return 400;
 									}
-									return 70;
+									return 100;
 								})
                             .charge(-1500)
 							.on("tick",tick)
@@ -180,20 +180,46 @@ text {
 							   .style("fill", function(node){
 									var color;//圆圈背景色
 									var link=links[node.index];
-									if(node.label=="property"){
-										color="#e9b99f";
-									}else{
+									if(node.label=="propertymin")
+									{
+										color="pink";
+									}
+
+                                    else if(node.label=="propertymax")
+                                    {
+                                    	color="yellow";
+                                    }
+                                    else if(node.label=="propertymid")
+                                    {
+                                    	color="orange";
+                                    }
+
+									else{
 										color="#afd1fc";
 									}
 									return color;
 								})
 								.attr("r", radius)
 								.attr("r", function(d) {
-									  if (d.label == "relation") {
-										return radius;
+									  if (d.label == "propertymax") {
+										return 2*radius;
 									  }
-										return 0.7*radius;
+									   if(d.label=="relation"){
+									   	return 1.3* radius;
+									   }
+									   if(d.label=="propertymin"){
+									   	return 0.3*radius;
+									   }
+									   
+
+
+										return radius;
 									})
+
+
+
+
+
 								.on("click",function(node){
 									//单击时让连接线加粗
 									edges_line.style("stroke-width",function(line){

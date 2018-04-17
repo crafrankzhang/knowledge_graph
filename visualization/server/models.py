@@ -49,7 +49,7 @@ def execute(conn, cursor, attr):
         for row in results:
             if row[-1]=="relation":
                 secondary_nodes.append((row[1],row[5]))
-                edges.append({"source": row[3], "target": row[5], "relation": u"高管", "label": row[-1]})
+                edges.append({"source": row[3], "target": row[5], "relation": u"包含", "label": row[-1]})
             else: 
                 secondary_edges.append({"source": row[3], "target": row[1], "relation":row[2], "label": row[-1]})
         for node in secondary_nodes:
@@ -58,7 +58,7 @@ def execute(conn, cursor, attr):
             results = cursor.fetchall()
             for row in results:
                 if row[1]==u'姓名': continue
-                secondary_edges.append({"source": node[1], "target": row[2], "relation": row[1], "label": row[3]})
+                secondary_edges.append({"source": node[1], "target": row[3], "relation": row[1], "label": row[4]})
     except:
         logger.error("ERROR: " + sql)
         conn.rollback()
