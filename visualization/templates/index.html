@@ -103,16 +103,16 @@ text {
 			var links = root.edges;
 
 			links.forEach(function(link) {
-				link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, label: link.label});
-				link.target = nodes[link.target] || (nodes[link.target] = {name: link.target, label: link.label});
+				link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, label: link.label,content:link.content});
+				link.target = nodes[link.target] || (nodes[link.target] = {name: link.target, label: link.label,content:link.content});
 			});
 
 			// // secondary nodes and edges
 			// var secondary_nodes = {};
 			var secondary_links = root.secondary_edges;
 			secondary_links.forEach(function(link, index) {
-				link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, label: link.label});
-				link.target = (nodes[index+"_"+link.target] = {name: link.target, label: link.label});
+				link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, label: link.label,content:link.content});
+				link.target = (nodes[index+"_"+link.target] = {name: link.target, label: link.label,content:link.content});
 				links.push(link);
 				index++;
 			});
@@ -232,14 +232,29 @@ text {
 									});
 								})
 								.on("dblclick",function(node)
-								{
+								{ 
+									if(node.label!="relation"){
 									dblclick=window.location.href="http://localhost:8080/api/v1?company="+node.name;  
+								      }
+
+                                     
+
+
 								})
+								//.on("mouseover",function(node){
+
+								//	.text(function(node){
+								//	return node.label;
+								//});
+									
+									
+								//})
+								
 								.call(force.drag);		
 
 			circle.append("svg:title")  
 					.text(function(node) { 
-						return "双击可查看详情"
+						return node.content;
 					});  	
 
 			var text = svg.append("g").selectAll("text")
@@ -274,47 +289,52 @@ text {
 						var mid5=d.name.substring(60,72);
 						var mid6=d.name.substring(72,84);
 						var mid7=d.name.substring(84,96);
-						var bot=d.name.substring(96,d.name.length);
+						var mid8=d.name.substring(96,108);
+						var bot=d.name.substring(108,d.name.length);
 
 						d3.select(this).text(function(){return '';});
 
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',-35)
+							.attr('y',-55)
 							.text(function(){return top;});
 
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',-17)
+							.attr('y',-37)
 							.text(function(){return mid1;});
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',-1)
+							.attr('y',-21)
 							.text(function(){return mid2;});
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',16)
+							.attr('y',-4)
 							.text(function(){return mid3;});
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',33)
+							.attr('y',13)
 							.text(function(){return mid4;});
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',50)
+							.attr('y',30)
 							.text(function(){return mid5;});	
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',67)
+							.attr('y',47)
 							.text(function(){return mid6;});		
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',84)
+							.attr('y',64)
 							.text(function(){return mid7;});		
 						d3.select(this).append('tspan')
 							.attr('x',0)
-							.attr('y',101)
-							.text(function(){return bot;});							
+							.attr('y',81)
+							.text(function(){return mid8;});	
+						d3.select(this).append('tspan')
+							.attr('x',0)
+							.attr('y',98)
+							.text(function(){return bot;});								
 
 
 					}

@@ -9,6 +9,7 @@ import time
 from functools import wraps
 
 from flask import request,redirect,session,g,Response,render_template
+
 from itsdangerous import JSONWebSignatureSerializer as JWT
 from flask_httpauth import HTTPTokenAuth
 from schema import Schema, And, Use, Optional, SchemaError
@@ -42,6 +43,9 @@ def parse():
 		mydata = models.execute(conn, cursor, ("person", name))		
 	# return {"resultmsg":"OK","resultno":ERROR_OK},200
 	return render_template('index.html')
+
+
+
 
 
 @app.route("/api/data")

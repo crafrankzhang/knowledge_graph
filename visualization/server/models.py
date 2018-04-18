@@ -35,8 +35,8 @@ def init():
 fname = os.getcwd() + "/templates/data.json"
 
 
-edge_sql_comp = """SELECT subj, obj, pred, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND company.code=%s;""" 
-edge_sql_pers = """SELECT subj, obj, pred, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND person.name="%s";"""
+edge_sql_comp = """SELECT subj, obj, obj1, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND company.code=%s;""" 
+edge_sql_pers = """SELECT subj, obj, obj1, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND person.name="%s";"""
 secondary_edge_sql = 'SELECT * FROM spo WHERE subj="%s"'
 
 def execute(conn, cursor, attr):
@@ -49,7 +49,7 @@ def execute(conn, cursor, attr):
         for row in results:
             if row[-1]=="relation":
                 secondary_nodes.append((row[1],row[5]))
-                edges.append({"source": row[3], "target": row[5], "relation": u"包含", "label": row[-1]})
+                edges.append({"source": row[3], "target": row[5], "relation": u"包含", "label": row[-1],"content":row[2]})
             else: 
                 secondary_edges.append({"source": row[3], "target": row[1], "relation":row[2], "label": row[-1]})
         for node in secondary_nodes:
