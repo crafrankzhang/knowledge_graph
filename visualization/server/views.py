@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-# @Author: ioriiod0
-# @Date:   2017-07-12 13:24:54
-# @Last Modified by:   ioriiod0
-# @Last Modified time: 2017-07-13 23:57:12
+
 
 import os
 import time
@@ -35,12 +32,12 @@ def parse():
 	global mydata
 	req = request.args
 	# .args.get('username')
-	if "company" in req:
-		company_code = req["company"]
-		mydata = models.execute(conn, cursor, ("company", company_code))
-	elif "person" in req:
-		name = req["person"]
-		mydata = models.execute(conn, cursor, ("person", name))		
+	if "entity" in req:
+		entity_code = req["entity"]
+		mydata = models.execute(conn, cursor, ("entity", entity_code))
+	elif "pers" in req:
+		name = req["pers"]
+		mydata = models.execute(conn, cursor, ("pers", name))		
 	# return {"resultmsg":"OK","resultno":ERROR_OK},200
 	return render_template('index.html')
 

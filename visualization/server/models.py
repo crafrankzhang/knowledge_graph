@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*- 
-# @Author: Shuang0420 
-# @Date: 2017-08-29 17:08:03 
-# @Last Modified by:   Shuang0420 
-# @Last Modified time: 2017-08-29 18:58:13 
 
 
 import json
@@ -35,15 +31,15 @@ def init():
 fname = os.getcwd() + "/templates/data.json"
 
 
-edge_sql_comp = """SELECT subj, obj, obj1, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND company.code=%s;""" 
-edge_sql_pers = """SELECT subj, obj, obj1, company.company_name, company.code, person.name, type FROM spo JOIN company JOIN person WHERE spo.subj=company.id AND spo.obj=person.id AND person.name="%s";"""
+edge_sql_comp = """SELECT subj, obj, obj1, entity.entity_name, entity.code, pers.name, type FROM spo JOIN entity JOIN pers WHERE spo.subj=entity.id AND spo.obj=pers.id AND entity.code=%s;""" 
+edge_sql_pers = """SELECT subj, obj, obj1, entity.entity_name, entity.code, pers.name, type FROM spo JOIN entity JOIN pers WHERE spo.subj=entity.id AND spo.obj=pers.id AND pers.name="%s";"""
 secondary_edge_sql = 'SELECT * FROM spo WHERE subj="%s"'
 
 def execute(conn, cursor, attr):
     js = {}
     edges, secondary_nodes, secondary_edges = [], [], []
     try:
-        sql = edge_sql_comp%(attr[1]) if attr[0]=='company' else edge_sql_pers%(attr[1])
+        sql = edge_sql_comp%(attr[1]) if attr[0]=='entity' else edge_sql_pers%(attr[1])
         cursor.execute(sql)
         results = cursor.fetchall()
         for row in results:
